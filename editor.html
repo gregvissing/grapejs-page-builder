@@ -19,34 +19,6 @@
 <div id="gjs"></div>
 
 <script type="text/javascript">
-    // !function($) {
-
-    //   $(function() {
-
-    //     // Read our previously saved greeting (if it exists)
-    //     if (typeof BLACKBAUD.api.customPartEditor.settings.htmlcode != '') {
-    //       $('#greeting').val(BLACKBAUD.api.customPartEditor.settings.htmlcode);
-    //     }
-
-    //     // We must implement the onSave method
-    //     // Returning true or false controls whether the save is successful
-    //     BLACKBAUD.api.customPartEditor.onSave = function() {
-
-    //       // Save our greeting
-    //       BLACKBAUD.api.customPartEditor.settings = {
-    //         htmlcode: $('#greeting').val()
-    //       };
-
-    //       // Required to allow the settings to save and the part to close
-    //       return true;
-    //     };
-
-    //   });
-
-    // }(jQuery);
-
-
-
     var lp = './img/';
     var plp = '//placehold.it/350x250/';
     var images = [
@@ -68,10 +40,6 @@
         container: '#gjs',
         fromElement: 1,
         showOffsets: 1,
-        storageManager: {
-            type: 'remote',
-            autoload: true,
-        },
         components: LandingPage.components || LandingPage.html,
         style: LandingPage.style || LandingPage.css,
         assetManager: {
@@ -603,45 +571,10 @@
 
     // Store and load events
     editor.on('storage:load', function(e) {
-        var $actionAttr = $('form').attr('action');
-        $actionAttr = $actionAttr.split('?');
-        $actionAttr = $actionAttr[0];
-        $actionAttr = $actionAttr.split('/');
-        $partID = $actionAttr[$actionAttr.length - 1];
-        alert($partID);
-
-        $.each(BLACKBAUD.api.customPartEditor.settings.items, function(i) {
-            var partNumber = this.partID;
-            if (partNumber = $partID) {
-                editor.getHtml(this.getHtml);
-                editor.getCss(this.cssCode);
-                editor.getConfig(this.editorConfig);
-            }
-        });
-
         console.log('Loaded ', e)
     });
 
     editor.on('storage:store', function(e) {
-        var items = [];
-        var $actionAttr = $('form').attr('action');
-        $actionAttr = $actionAttr.split('?');
-        $actionAttr = $actionAttr[0];
-        $actionAttr = $actionAttr.split('/');
-        $partID = $actionAttr[$actionAttr.length - 1];
-
-        var rowdata = {
-            partID: $partID,
-            htmlCode: editor.getHtml(),
-            cssCode: editor.getCss(),
-            editorConfig: editor.getConfig()
-        };
-
-        items.push(rowdata);
-
-        LACKBAUD.api.customPartEditor.settings["items"] = items;
-        //var $storeHtmlValue = editor.getHtml();
-        // alert($storeHtmlValue);
         console.log('Stored ', e)
     });
 
